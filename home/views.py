@@ -41,8 +41,6 @@ def index(request):
             'WHERE  l.lang=%s ORDER BY p.id DESC LIMIT 4', [currentlang])
 
     products_slider = Product.objects.all().order_by('id')[:4]  #first 4 products
-
-
     products_picked = Product.objects.all().order_by('?')[:4]   #Random selected 4 products
 
     page="home"
@@ -54,8 +52,6 @@ def index(request):
              #'category':category
              }
     return render(request,'index.html',context)
-
-
 
 
 def selectlanguage(request):
@@ -136,13 +132,11 @@ def search(request):
             if catid==0:
                 products=Product.objects.filter(title__icontains=query)  #SELECT * FROM product WHERE title LIKE '%query%'
             else:
-                products = Product.objects.filter(title__icontains=query,category_id=catid)
-
+                products = Product.objects.filter(title__icontains=query, category_id=catid)
             category = Category.objects.all()
             context = {'products': products, 'query':query,
                        'category': category }
             return render(request, 'search_products.html', context)
-
     return HttpResponseRedirect('/')
 
 def search_auto(request):
